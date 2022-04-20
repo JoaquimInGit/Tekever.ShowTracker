@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+  db:
+      image: postgres
+      container_name: ShowTracker_database_runtime
+      restart: always
+      environment:
+        POSTGRES_PASSWORD: password
+        POSTGRES_USER: user
+        POSTGRES_DB: showtracker
+      ports:
+        - 5433:5432
+      volumes:
+        - database:/var/lib/postgresql
+        - database-data:/var/lib/postgresql/data
+  object-db:
+      image: mongo
+      container_name: ShowTracker_document_database_runtime
+      restart: always
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: user
+        MONGO_INITDB_ROOT_PASSWORD: password
+      ports:
+        - 27018:27017
+      volumes:
+        - object-database-data:/data/db
+        - object-database:/data/configdb
+volumes:   
+  database:   
+  database-data:
+  object-database:
+  object-database-data:
